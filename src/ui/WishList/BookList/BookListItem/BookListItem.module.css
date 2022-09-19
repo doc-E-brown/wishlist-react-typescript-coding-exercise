@@ -7,11 +7,7 @@
 }
 
 .bookListItem--visible {
-  background: linear-gradient(
-    85deg,
-    var(--primary) 1%,
-    var(--primary-lighter) 100%
-  );
+  background: var(--gradient-primary-1);
   box-shadow: var(--box-shadow-1);
 }
 

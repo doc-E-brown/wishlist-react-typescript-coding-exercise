@@ -10,7 +10,12 @@
   --space-3: 1rem;
   --space-4: 1.25rem;
   --box-shadow-1: 0px 5px 5px hsla(0 0% 0% / 0.1);
-  --box-shadow-2: 0px 10px 10px hsla(0 0% 0% / 0.1);
+  --box-shadow-2: 0px 10px 10px hsla(0 0% 0% / 0.2);
+  --gradient-primary-1: linear-gradient(
+    85deg,
+    var(--primary) 1%,
+    var(--primary-lighter) 100%
+  );
 }
 
 body {

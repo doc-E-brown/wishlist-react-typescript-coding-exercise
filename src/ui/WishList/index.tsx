@@ -5,6 +5,7 @@ import { Book, Books, Visibility } from "types";
 import { getBooksByVisibility, updateBookVisibility } from "./utils";
 import { BookList, BookListProps } from "./BookList";
 import { WishListHeader } from "./WishListHeader";
+import { ResetButton } from "./ResetButton";
 import styles from "./WishList.module.css";
 
 type WishListProps = {
@@ -94,7 +95,7 @@ export const WishList = ({
           onZoneDragOver={handleZoneDragOver}
         />
       </div>
-      <button onClick={resetBooks}>Reset</button>
+      <ResetButton onClick={resetBooks} />
     </section>
   );
 };
