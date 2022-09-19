@@ -1,10 +1,10 @@
-import { Book } from "../types";
+import { Book } from "types";
 
-type BookInfoCardProps = {
+type BookInfoPanelProps = {
   book: Book;
 };
 
-export const BookInfoCard = ({ book }: BookInfoCardProps) => (
+export const BookInfoPanel = ({ book }: BookInfoPanelProps) => (
   <article>
     <h3>{book.title}</h3>
     <div>{book.author}</div>
