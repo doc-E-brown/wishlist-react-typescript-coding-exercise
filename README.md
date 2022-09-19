@@ -4,11 +4,15 @@ A React + TypeScript wishlist app as a [take-home coding exercise](https://githu
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Edge case issues to fix if time permits
+## Assumptions
 
-- When user moves all books to either the hidden or visible list, the opposite list's drop zone disappears, and so the user is unable to move the books back.
+- The order which books appear on the visible or hidden list is determined by their array position in books.json. User should not be able to re-order books in the wish list.
+
+## Issues to fix if time permits
+
+- No tests due to time constraints. Add Jest unit tests, storybook snapshots, accessibility tests, integration & end-to-end tests.
+- When user moves all books to either the hidden or visible list, the opposite list's drop zone disappears, and so the user is unable to move the books back. Fixed by adding minimum-height/padding to the drop zone.
 - HTML Drag & Drop API does not work with touch devices. Accessibility of drag and drop is also not considered. Several React drag and drop libraries address these issues and abstract away the drag and drop implementation complexity.
-- No tests due to time constraints.
 - Require react-transition-group or other library to perform fade-out css transition of the BookInfoPanel when mouse leaves a book wish list item.
 
 ## Available Scripts
