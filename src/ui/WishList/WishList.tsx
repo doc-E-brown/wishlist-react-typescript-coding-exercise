@@ -3,15 +3,17 @@ import { useState } from "react";
 import defaultBooks from "data/books.json";
 import { Book, Books, Visibility } from "types";
 import { getBooksByVisibility, updateBookVisibility } from "./utils";
-import { BookList } from "./BookList";
+import { BookList, BookListProps } from "./BookList";
 import { WishListHeader } from "./WishListHeader";
 
 type WishListProps = {
   books?: Books;
+  setBookToDisplay: (book: Book | null) => void;
 };
 
 export const WishList = ({
   books: initialBooks = defaultBooks,
+  setBookToDisplay,
 }: WishListProps) => {
   const [books, setBooks] = useState<Books>(initialBooks);
 
@@ -20,15 +22,14 @@ export const WishList = ({
 
   const resetBooks = () => setBooks(initialBooks);
 
-  const handleItemDragStart =
-    (id: Book["id"]): React.DragEventHandler<HTMLLIElement> =>
-    (ev) => {
+  const handleItemDragStart: BookListProps["onItemDragStart"] =
+    (id: Book["id"]) => (ev) => {
       ev.dataTransfer.setData("book-id", id);
       ev.dataTransfer.effectAllowed = "move";
     };
 
-  const handleDrop =
-    (dropZoneEffect: Visibility): React.DragEventHandler<HTMLUListElement> =>
+  const handleZoneDrop =
+    (dropZoneEffect: Visibility): BookListProps["onZoneDrop"] =>
     (ev) => {
       ev.preventDefault();
 
@@ -54,9 +55,18 @@ export const WishList = ({
       }
     };
 
-  const handleDragover: React.DragEventHandler<HTMLUListElement> = (ev) => {
+  const handleZoneDragover: BookListProps["onZoneDragOver"] = (ev) => {
     ev.preventDefault();
     ev.dataTransfer.dropEffect = "move";
+  };
+
+  const handleItemMouseEnter: BookListProps["onItemMouseEnter"] =
+    (book: Book) => () => {
+      setBookToDisplay(book);
+    };
+
+  const handleItemMouseLeave: BookListProps["onItemMouseLeave"] = () => {
+    setBookToDisplay(null);
   };
 
   return (
@@ -66,8 +76,10 @@ export const WishList = ({
         type={Visibility.Visible}
         books={visibleBooks}
         onItemDragStart={handleItemDragStart}
-        onZoneDrop={handleDrop(Visibility.Visible)}
-        onZoneDragOver={handleDragover}
+        onItemMouseEnter={handleItemMouseEnter}
+        onItemMouseLeave={handleItemMouseLeave}
+        onZoneDrop={handleZoneDrop(Visibility.Visible)}
+        onZoneDragOver={handleZoneDragover}
       />
       <div>
         <h4>Hidden list</h4>
@@ -75,8 +87,10 @@ export const WishList = ({
           type={Visibility.Hidden}
           books={hiddenBooks}
           onItemDragStart={handleItemDragStart}
-          onZoneDrop={handleDrop(Visibility.Hidden)}
-          onZoneDragOver={handleDragover}
+          onItemMouseEnter={handleItemMouseEnter}
+          onItemMouseLeave={handleItemMouseLeave}
+          onZoneDrop={handleZoneDrop(Visibility.Hidden)}
+          onZoneDragOver={handleZoneDragover}
         />
       </div>
       <button onClick={resetBooks}>Reset</button>

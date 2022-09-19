@@ -9,6 +9,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - When user moves all books to either the hidden or visible list, the opposite list's drop zone disappears, and so the user is unable to move the books back.
 - HTML Drag & Drop API does not work with touch devices. Accessibility of drag and drop is also not considered. Several React drag and drop libraries address these issues and abstract away the drag and drop implementation complexity.
 - No tests due to time constraints.
+- Require react-transition-group or other library to perform fade-out css transition of the BookInfoPanel when mouse leaves a book wish list item.
 
 ## Available Scripts
 
