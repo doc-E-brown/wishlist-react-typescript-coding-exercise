@@ -1,7 +1,9 @@
+import { useState } from "react";
+
 import "./App.css";
 import initialBooks from "./data/books.json";
 import { notNullish } from "./utils";
-import { Book, Books } from "./types";
+import { Book, Books, BookWithoutId } from "./types";
 import { WishListItem } from "./ui/WishListItem";
 import { BookInfoCard } from "./ui/BookInfoCard";
 
@@ -39,13 +41,38 @@ const getBooksByIds =
     ids.map(getBookById(books)).filter<Book>(notNullish);
 
 const App = () => {
+  const [books, setBooks] = useState<Books>(initialBooks);
+
   const { hidden: hiddenBookIds, visible: visibleBookIds } =
-    getBookIdsByVisibility(initialBooks);
+    getBookIdsByVisibility(books);
 
-  const getInitialBooksByIds = getBooksByIds(initialBooks);
+  const visibleBooks: Books = getBooksByIds(books)(visibleBookIds);
+  const hiddenBooks: Books = getBooksByIds(books)(hiddenBookIds);
 
-  const visibleBooks: Books = getInitialBooksByIds(visibleBookIds);
-  const hiddenBooks: Books = getInitialBooksByIds(hiddenBookIds);
+  const updateBooksById = (
+    books: Books,
+    id: Book["id"],
+    newBook: Partial<BookWithoutId>
+  ): Books => {
+    const bookIndex = books.findIndex((book) => book.id === id);
+    return Object.assign([], books, {
+      [bookIndex]: { ...books[bookIndex], ...newBook },
+    });
+  };
+
+  const makeBookHidden: React.MouseEventHandler<HTMLButtonElement> = () => {
+    const updatedBooks = updateBooksById(
+      books,
+      "189560ed-6efb-401f-a23a-0d17127d4a59",
+      {
+        isHidden: false,
+      }
+    );
+
+    setBooks(updatedBooks);
+  };
+
+  const resetBooks = () => setBooks(initialBooks);
 
   return (
     <div className="App">
@@ -75,6 +102,8 @@ const App = () => {
           </div>
         </div>
         <BookInfoCard book={initialBooks[0]} />
+        <button onClick={makeBookHidden}>CHANGE BOOK TO VISIBLE</button>
+        <button onClick={resetBooks}>Reset</button>
       </section>
     </div>
   );
