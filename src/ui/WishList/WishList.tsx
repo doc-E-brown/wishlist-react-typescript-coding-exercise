@@ -1,9 +1,9 @@
 import { useState } from "react";
 
 import defaultBooks from "data/books.json";
-import { Books } from "types";
+import { Book, Books, Visibility } from "types";
 import { BookInfoPanel } from "./BookInfoPanel";
-import { getBooksByVisibility, updateBooksById } from "./utils";
+import { getBooksByVisibility, updateBookVisibility } from "./utils";
 import { BookList } from "./BookList";
 
 type WishListProps = {
@@ -18,18 +18,46 @@ export const WishList = ({
   const { visible: visibleBooks, hidden: hiddenBooks } =
     getBooksByVisibility(books);
 
-  const makeBookNotHidden: React.MouseEventHandler<HTMLButtonElement> = () => {
-    const updatedBooks = updateBooksById(books)(
-      "189560ed-6efb-401f-a23a-0d17127d4a59",
-      {
-        isHidden: false,
-      }
-    );
-
-    setBooks(updatedBooks);
-  };
-
   const resetBooks = () => setBooks(initialBooks);
+
+  const handleItemDragStart =
+    (id: Book["id"]): React.DragEventHandler<HTMLLIElement> =>
+    (ev) => {
+      ev.dataTransfer.setData("book-id", id);
+      ev.dataTransfer.effectAllowed = "move";
+    };
+
+  const handleDrop =
+    (dropZoneEffect: Visibility): React.DragEventHandler<HTMLUListElement> =>
+    (ev) => {
+      ev.preventDefault();
+
+      const bookId = ev.dataTransfer.getData("book-id");
+      const book = books.find((book) => book.id === bookId);
+
+      if (!book) {
+        return;
+      }
+
+      const updateVisibility = updateBookVisibility(books);
+
+      if (dropZoneEffect === Visibility.Visible && book.isHidden) {
+        const updatedBooks = updateVisibility(bookId, false);
+        setBooks(updatedBooks);
+        return;
+      }
+
+      if (dropZoneEffect === Visibility.Hidden && !book.isHidden) {
+        const updatedBooks = updateVisibility(bookId, true);
+        setBooks(updatedBooks);
+        return;
+      }
+    };
+
+  const handleDragover: React.DragEventHandler<HTMLUListElement> = (ev) => {
+    ev.preventDefault();
+    ev.dataTransfer.dropEffect = "move";
+  };
 
   return (
     <section>
@@ -42,15 +70,26 @@ export const WishList = ({
           <p>books</p>
         </hgroup>
         <div>
-          <BookList books={visibleBooks} />
+          <BookList
+            type={Visibility.Visible}
+            books={visibleBooks}
+            onItemDragStart={handleItemDragStart}
+            onZoneDrop={handleDrop(Visibility.Visible)}
+            onZoneDragOver={handleDragover}
+          />
         </div>
         <div>
           <h4>Hidden list</h4>
-          <BookList books={hiddenBooks} />
+          <BookList
+            type={Visibility.Hidden}
+            books={hiddenBooks}
+            onItemDragStart={handleItemDragStart}
+            onZoneDrop={handleDrop(Visibility.Hidden)}
+            onZoneDragOver={handleDragover}
+          />
         </div>
       </div>
       <BookInfoPanel book={initialBooks[0]} />
-      <button onClick={makeBookNotHidden}>CHANGE BOOK TO VISIBLE</button>
       <button onClick={resetBooks}>Reset</button>
     </section>
   );

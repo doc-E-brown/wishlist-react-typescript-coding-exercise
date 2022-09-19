@@ -23,7 +23,7 @@ export const getBooksByVisibility = (books: Books): BooksByVisibility =>
     }
   );
 
-export const updateBooksById =
+const updateBooksById =
   (books: Books) =>
   (id: Book["id"], newBookValues: Partial<BookWithoutId>): Books => {
     const bookIndex = books.findIndex((book) => book.id === id);
@@ -31,3 +31,8 @@ export const updateBooksById =
       [bookIndex]: { ...books[bookIndex], ...newBookValues },
     });
   };
+
+export const updateBookVisibility =
+  (books: Books) =>
+  (id: Book["id"], isHidden: Book["isHidden"]): Books =>
+    updateBooksById(books)(id, { isHidden });
