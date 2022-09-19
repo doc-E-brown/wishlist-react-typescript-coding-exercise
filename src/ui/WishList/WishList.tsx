@@ -55,7 +55,7 @@ export const WishList = ({
       }
     };
 
-  const handleZoneDragover: BookListProps["onZoneDragOver"] = (ev) => {
+  const handleZoneDragOver: BookListProps["onZoneDragOver"] = (ev) => {
     ev.preventDefault();
     ev.dataTransfer.dropEffect = "move";
   };
@@ -79,7 +79,7 @@ export const WishList = ({
         onItemMouseEnter={handleItemMouseEnter}
         onItemMouseLeave={handleItemMouseLeave}
         onZoneDrop={handleZoneDrop(Visibility.Visible)}
-        onZoneDragOver={handleZoneDragover}
+        onZoneDragOver={handleZoneDragOver}
       />
       <div>
         <h4>Hidden list</h4>
@@ -90,7 +90,7 @@ export const WishList = ({
           onItemMouseEnter={handleItemMouseEnter}
           onItemMouseLeave={handleItemMouseLeave}
           onZoneDrop={handleZoneDrop(Visibility.Hidden)}
-          onZoneDragOver={handleZoneDragover}
+          onZoneDragOver={handleZoneDragOver}
         />
       </div>
       <button onClick={resetBooks}>Reset</button>
