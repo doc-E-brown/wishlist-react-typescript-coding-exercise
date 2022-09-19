@@ -2,9 +2,9 @@ import { useState } from "react";
 
 import defaultBooks from "data/books.json";
 import { Book, Books, Visibility } from "types";
-import { BookInfoPanel } from "./BookInfoPanel";
 import { getBooksByVisibility, updateBookVisibility } from "./utils";
 import { BookList } from "./BookList";
+import { WishListHeader } from "./WishListHeader";
 
 type WishListProps = {
   books?: Books;
@@ -61,35 +61,24 @@ export const WishList = ({
 
   return (
     <section>
+      <WishListHeader />
+      <BookList
+        type={Visibility.Visible}
+        books={visibleBooks}
+        onItemDragStart={handleItemDragStart}
+        onZoneDrop={handleDrop(Visibility.Visible)}
+        onZoneDragOver={handleDragover}
+      />
       <div>
-        <hgroup>
-          <h1>
-            <span>Shopping </span>
-            <span>Wish list</span>
-          </h1>
-          <p>books</p>
-        </hgroup>
-        <div>
-          <BookList
-            type={Visibility.Visible}
-            books={visibleBooks}
-            onItemDragStart={handleItemDragStart}
-            onZoneDrop={handleDrop(Visibility.Visible)}
-            onZoneDragOver={handleDragover}
-          />
-        </div>
-        <div>
-          <h4>Hidden list</h4>
-          <BookList
-            type={Visibility.Hidden}
-            books={hiddenBooks}
-            onItemDragStart={handleItemDragStart}
-            onZoneDrop={handleDrop(Visibility.Hidden)}
-            onZoneDragOver={handleDragover}
-          />
-        </div>
+        <h4>Hidden list</h4>
+        <BookList
+          type={Visibility.Hidden}
+          books={hiddenBooks}
+          onItemDragStart={handleItemDragStart}
+          onZoneDrop={handleDrop(Visibility.Hidden)}
+          onZoneDragOver={handleDragover}
+        />
       </div>
-      <BookInfoPanel book={initialBooks[0]} />
       <button onClick={resetBooks}>Reset</button>
     </section>
   );
