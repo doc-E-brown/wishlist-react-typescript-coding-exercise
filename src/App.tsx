@@ -1,9 +1,9 @@
 import "./App.css";
 import initialBooks from "./data/books.json";
 import { notNullish } from "./utils";
-
-type Books = typeof initialBooks;
-type Book = Books[number];
+import { Book, Books } from "./types";
+import { WishListItem } from "./ui/WishListItem";
+import { BookInfoCard } from "./ui/BookInfoCard";
 
 type BookIdsByVisibility = {
   visible: Book["id"][];
@@ -60,41 +60,21 @@ const App = () => {
           </hgroup>
           <div>
             <ul>
-              {visibleBooks.map((book) => {
-                return (
-                  <li>
-                    <div>{book.title}</div>
-                    <div>{book.author}</div>
-                  </li>
-                );
-              })}
+              {visibleBooks.map((book) => (
+                <WishListItem key={book.id} book={book} />
+              ))}
             </ul>
           </div>
           <div>
             <h4>Hidden list</h4>
             <ul>
-              {hiddenBooks.map((book) => {
-                return (
-                  <li>
-                    <div>{book.title}</div>
-                    <div>{book.author}</div>
-                  </li>
-                );
-              })}
+              {hiddenBooks.map((book) => (
+                <WishListItem key={book.id} book={book} />
+              ))}
             </ul>
           </div>
         </div>
-        <article>
-          <h3>{initialBooks[0].title}</h3>
-          <div>{initialBooks[0].author}</div>
-          <b>Publisher&apos;s summary</b>
-          <p>{initialBooks[0].publisherSummary}</p>
-          <img
-            src={initialBooks[0].imageUrl}
-            alt={`${initialBooks[0].title} book cover`}
-            role="presentation"
-          />
-        </article>
+        <BookInfoCard book={initialBooks[0]} />
       </section>
     </div>
   );
