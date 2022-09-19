@@ -1,0 +1,4 @@
+.bookInfoPanel {
+  background: var(--primary);
+  border-radius: var(--border-radius);
+}

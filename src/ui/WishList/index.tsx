@@ -5,6 +5,7 @@ import { Book, Books, Visibility } from "types";
 import { getBooksByVisibility, updateBookVisibility } from "./utils";
 import { BookList, BookListProps } from "./BookList";
 import { WishListHeader } from "./WishListHeader";
+import styles from "./WishList.module.css";
 
 type WishListProps = {
   books?: Books;
@@ -70,7 +71,7 @@ export const WishList = ({
   };
 
   return (
-    <section>
+    <section className={styles.wishlist}>
       <WishListHeader />
       <BookList
         type={Visibility.Visible}
@@ -82,7 +83,7 @@ export const WishList = ({
         onZoneDragOver={handleZoneDragOver}
       />
       <div>
-        <h4>Hidden list</h4>
+        <h4 className={styles.hiddenListHeader}>Hidden list</h4>
         <BookList
           type={Visibility.Hidden}
           books={hiddenBooks}

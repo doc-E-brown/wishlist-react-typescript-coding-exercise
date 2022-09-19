@@ -1,0 +1,28 @@
+.wishlist {
+  background: var(--primary);
+  border-radius: var(--border-radius);
+  padding: var(--space-2);
+}
+
+.hiddenListHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: var(--space-2) 0;
+}
+
+.hiddenListHeader:before,
+.hiddenListHeader:after {
+  content: "";
+  flex-grow: 1;
+  background: #fff;
+  height: 1px;
+}
+
+.hiddenListHeader:before {
+  margin-right: var(--space-4);
+}
+
+.hiddenListHeader:after {
+  margin-left: var(--space-4);
+}

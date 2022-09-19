@@ -1,0 +1,25 @@
+.bookListItem {
+  border-radius: var(--border-radius);
+  padding: var(--space-1);
+  margin-bottom: var(--space-2);
+  display: flex;
+  align-items: flex-start;
+}
+
+.bookListItem--visible {
+  background: linear-gradient(
+    85deg,
+    var(--primary) 1%,
+    var(--primary-lighter) 100%
+  );
+  box-shadow: var(--box-shadow-1);
+}
+
+.bookListItem--hidden {
+  opacity: 0.5;
+  background: var(--primary-light);
+}
+
+.visibilityIcon {
+  margin-right: var(--space-2);
+}
