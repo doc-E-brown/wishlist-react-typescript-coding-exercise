@@ -20,23 +20,21 @@ export const BookList = ({
   onItemMouseLeave,
   onZoneDragOver,
   onZoneDrop,
-}: BookListProps) => {
-  return (
-    <ul
-      className={styles.bookList}
-      onDragOver={onZoneDragOver}
-      onDrop={onZoneDrop}
-    >
-      {books.map((book) => (
-        <BookListItem
-          type={type}
-          key={book.id}
-          book={book}
-          onDragStart={onItemDragStart(book.id)}
-          onMouseEnter={onItemMouseEnter(book)}
-          onMouseLeave={onItemMouseLeave}
-        />
-      ))}
-    </ul>
-  );
-};
+}: BookListProps) => (
+  <ul
+    className={styles.bookList}
+    onDragOver={onZoneDragOver}
+    onDrop={onZoneDrop}
+  >
+    {books.map((book) => (
+      <BookListItem
+        type={type}
+        key={book.id}
+        book={book}
+        onDragStart={onItemDragStart(book.id)}
+        onMouseEnter={onItemMouseEnter(book)}
+        onMouseLeave={onItemMouseLeave}
+      />
+    ))}
+  </ul>
+);
