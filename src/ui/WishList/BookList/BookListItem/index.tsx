@@ -37,8 +37,15 @@ export const BookListItem = ({
       <EyeSvg className={styles.visibilityIcon} />
     )}
     <div>
-      <div>{book.title}</div>
-      <div>{book.author}</div>
+      <div
+        className={classNames([
+          "typography--h4",
+          type === Visibility.Hidden && styles["bookTitle--hidden"],
+        ])}
+      >
+        {book.title}
+      </div>
+      <div className="typography--smBold">{book.author}</div>
     </div>
   </li>
 );

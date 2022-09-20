@@ -11,6 +11,7 @@ import { BookList, BookListProps } from "./BookList";
 import { WishListHeader } from "./WishListHeader";
 import { ResetButton } from "./ResetButton";
 import styles from "./WishList.module.css";
+import classNames from "classnames";
 
 type WishListProps = {
   books?: Books;
@@ -107,7 +108,9 @@ export const WishList = ({
         onZoneDragOver={handleZoneDragOver}
       />
       <div>
-        <h4 className={styles.hiddenListHeader}>Hidden list</h4>
+        <h4 className={classNames([styles.hiddenListHeader, "typography--h4"])}>
+          Hidden list
+        </h4>
         <BookList
           type={Visibility.Hidden}
           books={hiddenBooks}

@@ -18,5 +18,10 @@
 
 .visibilityIcon {
   min-width: var(--space-3);
+  margin-top: 4px;
   margin-right: var(--space-2);
+}
+
+.bookTitle--hidden {
+  text-decoration: line-through;
 }

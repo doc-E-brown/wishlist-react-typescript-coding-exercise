@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { Book } from "types";
 import styles from "./BookInfoPanel.module.css";
 
@@ -8,11 +9,15 @@ type BookInfoPanelProps = {
 export const BookInfoPanel = ({ book }: BookInfoPanelProps) => (
   <article className={styles.bookInfoPanel}>
     <div className={styles.titleAndAuthorContainer}>
-      <h3>{book.title}</h3>
-      <div>{book.author}</div>
+      <h3 className="typography--h2">{book.title}</h3>
+      <div className={classNames(["typography--h4", styles.author])}>
+        {book.author}
+      </div>
     </div>
     <div className={styles.publishersSummaryContainer}>
-      <h5>Publisher&apos;s summary</h5>
+      <h5 className={classNames(["typography--h4", styles.summaryTitle])}>
+        Publisher&apos;s summary
+      </h5>
       <p>{book.publisherSummary}</p>
     </div>
     <img

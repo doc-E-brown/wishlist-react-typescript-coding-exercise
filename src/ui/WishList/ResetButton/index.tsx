@@ -7,7 +7,7 @@ export const ResetButton = ({
   ...buttonProps
 }: React.ComponentPropsWithoutRef<"button">) => (
   <button
-    className={classNames([styles.resetButton, className])}
+    className={classNames([styles.resetButton, "typography--h4", className])}
     {...buttonProps}
   >
     <span className={styles.resetIcon}>
