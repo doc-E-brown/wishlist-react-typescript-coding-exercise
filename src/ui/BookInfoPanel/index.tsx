@@ -9,7 +9,9 @@ type BookInfoPanelProps = {
 export const BookInfoPanel = ({ book }: BookInfoPanelProps) => (
   <article className={styles.bookInfoPanel}>
     <div className={styles.titleAndAuthorContainer}>
-      <h3 className="typography--h2">{book.title}</h3>
+      <h3 className={classNames(["typography--h2", styles.title])}>
+        {book.title}
+      </h3>
       <div className={classNames(["typography--h4", styles.author])}>
         {book.author}
       </div>

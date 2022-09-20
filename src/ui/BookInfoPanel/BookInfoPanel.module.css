@@ -18,6 +18,10 @@
   max-width: 28ch;
 }
 
+.title {
+  text-shadow: var(--text-shadow);
+}
+
 .author {
   margin-top: var(--space-1);
 }

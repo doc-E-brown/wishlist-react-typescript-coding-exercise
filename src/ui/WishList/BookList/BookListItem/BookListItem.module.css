@@ -4,6 +4,11 @@
   margin-bottom: var(--space-2);
   display: flex;
   align-items: flex-start;
+  cursor: grab;
+}
+
+.bookListItem:active {
+  cursor: grabbing;
 }
 
 .bookListItem--visible {

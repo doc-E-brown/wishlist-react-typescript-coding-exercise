@@ -2,8 +2,10 @@
   display: flex;
   margin-bottom: var(--space-6);
 }
+
 .header {
   flex: 1;
+  margin-left: var(--space-1);
 }
 
 .subheading {

@@ -20,6 +20,7 @@
   --font-size-5: 2.25rem;
   --box-shadow-1: 0px 5px 5px hsla(0 0% 0% / 0.1);
   --box-shadow-2: 0px 10px 10px hsla(0 0% 0% / 0.2);
+  --text-shadow: 0px 2px 5px hsla(0 0% 0% / 0.12);
   --gradient-primary-1: linear-gradient(
     85deg,
     var(--primary) 1%,

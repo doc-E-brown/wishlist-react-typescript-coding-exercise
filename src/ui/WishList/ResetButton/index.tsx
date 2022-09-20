@@ -11,7 +11,7 @@ export const ResetButton = ({
     {...buttonProps}
   >
     <span className={styles.resetIcon}>
-      <ResetSvg className={styles.resetIconArrow} />
+      <ResetSvg />
     </span>
     Reset
   </button>
