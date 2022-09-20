@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import defaultBooks from "data/books.json";
 import { Book, Books, Visibility } from "types";
-import { getBooksByVisibility, updateBookVisibility } from "./utils";
+import {
+  getBooksByVisibility,
+  isBooksVisibilityIdentical,
+  updateBookVisibility,
+} from "./utils";
 import { BookList, BookListProps } from "./BookList";
 import { WishListHeader } from "./WishListHeader";
 import { ResetButton } from "./ResetButton";
@@ -18,11 +22,22 @@ export const WishList = ({
   setBookToDisplay,
 }: WishListProps) => {
   const [books, setBooks] = useState<Books>(initialBooks);
+  const [showResetButton, setShowResetButton] = useState(false);
+
+  useEffect(() => {
+    if (isBooksVisibilityIdentical(initialBooks, books)) {
+      setShowResetButton(false);
+    } else {
+      setShowResetButton(true);
+    }
+  }, [initialBooks, books]);
 
   const { visible: visibleBooks, hidden: hiddenBooks } =
     getBooksByVisibility(books);
 
-  const resetBooks = () => setBooks(initialBooks);
+  const resetBooks = () => {
+    setBooks(initialBooks);
+  };
 
   const handleItemDragStart: BookListProps["onItemDragStart"] =
     (id: Book["id"]) => (ev) => {
@@ -44,16 +59,24 @@ export const WishList = ({
 
       const updateVisibility = updateBookVisibility(books);
 
-      if (dropZoneEffect === Visibility.Visible && book.isHidden) {
-        const updatedBooks = updateVisibility(bookId, false);
-        setBooks(updatedBooks);
+      const shouldBookBeUpdatedToHidden =
+        dropZoneEffect === Visibility.Hidden && !book.isHidden;
+
+      const shouldBookBeUpdatedToVisible =
+        dropZoneEffect === Visibility.Visible && book.isHidden;
+
+      if (!(shouldBookBeUpdatedToHidden || shouldBookBeUpdatedToVisible)) {
         return;
       }
 
-      if (dropZoneEffect === Visibility.Hidden && !book.isHidden) {
-        const updatedBooks = updateVisibility(bookId, true);
+      let updatedBooks: Books = [];
+
+      if (shouldBookBeUpdatedToVisible) {
+        updatedBooks = updateVisibility(bookId, false);
         setBooks(updatedBooks);
-        return;
+      } else if (shouldBookBeUpdatedToHidden) {
+        updatedBooks = updateVisibility(bookId, true);
+        setBooks(updatedBooks);
       }
     };
 
@@ -95,7 +118,9 @@ export const WishList = ({
           onZoneDragOver={handleZoneDragOver}
         />
       </div>
-      <ResetButton onClick={resetBooks} />
+      <div className={styles.resetButtonContainer}>
+        {showResetButton && <ResetButton onClick={resetBooks} />}
+      </div>
     </section>
   );
 };

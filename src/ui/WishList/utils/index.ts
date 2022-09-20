@@ -36,3 +36,6 @@ export const updateBookVisibility =
   (books: Books) =>
   (id: Book["id"], isHidden: Book["isHidden"]): Books =>
     updateBooksById(books)(id, { isHidden });
+
+export const isBooksVisibilityIdentical = (a: Books, b: Books) =>
+  a.every((book, index) => book.isHidden === b[index].isHidden);
