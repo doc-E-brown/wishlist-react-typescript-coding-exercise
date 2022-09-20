@@ -1,5 +1,7 @@
 # Franklin.ai Wishlist Coding Exercise
 
+https://user-images.githubusercontent.com/18624246/191220080-3152cbbd-2618-476c-9063-b289e869ccc4.mov
+
 A React + TypeScript wishlist app as a [take-home coding exercise](https://github.com/stephenkoo/wishlist-react-typescript-coding-exercise/blob/main/CODING-EXERCISE.md)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
