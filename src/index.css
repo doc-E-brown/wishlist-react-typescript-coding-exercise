@@ -18,6 +18,16 @@
     var(--primary) 1%,
     var(--primary-lighter) 100%
   );
+  --animation-fade-in: fadeIn 200ms;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 html,
