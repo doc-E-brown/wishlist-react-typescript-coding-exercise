@@ -17,5 +17,6 @@
 }
 
 .visibilityIcon {
+  min-width: var(--space-3);
   margin-right: var(--space-2);
 }

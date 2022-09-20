@@ -1,4 +1,4 @@
-import resetSvg from "assets/reset.svg";
+import { ReactComponent as ResetSvg } from "assets/reset.svg";
 import classNames from "classnames";
 import styles from "./ResetButton.module.css";
 
@@ -11,7 +11,7 @@ export const ResetButton = ({
     {...buttonProps}
   >
     <span className={styles.resetIcon}>
-      <img className={styles.resetIconArrow} src={resetSvg} alt="" />
+      <ResetSvg className={styles.resetIconArrow} />
     </span>
     Reset
   </button>
